@@ -1,10 +1,16 @@
-import { Text, View } from "react-native";
+import { Text} from "react-native";
+import { HomeContainer } from "./styles";
+import { Header } from "@components/Header";
+import { Percent } from "@components/Percent";
+import { Meals } from "@components/Meals";
 
 
 export function Home() {
     return (
-        <View>
-            <Text>Home</Text>
-        </View>
+        <HomeContainer>
+            <Header/>
+            <Percent/>
+            <Meals/>
+        </HomeContainer>
     )
 }
