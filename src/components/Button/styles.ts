@@ -9,6 +9,8 @@ type Props = {
 
 export const ButtonContainer = styled(TouchableOpacity)<Props>`
         flex: 1;
+        flex-direction: row;
+        gap: 10px;
         min-height: 50px;
         max-height: 50px;
         padding: 0 36px;
@@ -20,6 +22,7 @@ export const ButtonContainer = styled(TouchableOpacity)<Props>`
         align-items: center;
     `
 
+
 export const ButtonTitle = styled.Text<Props>`
     ${({theme, type}) => css`
         font-size: ${theme.FONT_SIZE.MD}px;
@@ -29,3 +32,4 @@ export const ButtonTitle = styled.Text<Props>`
     `}
 
 `
+
