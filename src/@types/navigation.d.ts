@@ -17,7 +17,9 @@ export declare global {
             mealsinfo: {
                 id: string
             }
-            editmeals: undefined
+            editmeals: {
+                id: string
+            }
         }
     }
 }
