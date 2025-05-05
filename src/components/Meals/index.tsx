@@ -7,6 +7,7 @@ import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { ListEmpty } from "@components/ListEmpty";
 import { mealsGetAll } from "@storage/meals/mealsGetAll";
 import { MealDTO } from "src/dtos/MealDTO";
+import { Plus } from "phosphor-react-native";
 
 type SectionData = {
   title: string
@@ -24,7 +25,8 @@ export function Meals() {
       try {
         const data = await mealsGetAll()
 
-        const mealsGrouped = data.reduce((acc: SectionData[], curr: MealDTO) => {
+        //agrupa por title e data que é o formato para a SectionList
+        const mealsGrouped: SectionData[] = data.reduce((acc: SectionData[], curr: MealDTO) => {
           const group = acc.find(item => item.title === curr.date);
           if (group) {
             group.data.push(curr);
@@ -34,9 +36,20 @@ export function Meals() {
           return acc;
         }, []);
 
-        console.log("data: ", data)
-        console.log("mealsGrouped: ", mealsGrouped)
-        setMeals(mealsGrouped)
+        //oderna em ordem decrescente
+        const sortedMeals: SectionData[] = mealsGrouped.sort((a, b) => {
+          const [dayA, monthA, yearA] = a.title.split('/');
+          const [dayB, monthB, yearB] = b.title.split('/');
+        
+          const dateA = new Date(`${yearA}-${monthA}-${dayA}`);
+          const dateB = new Date(`${yearB}-${monthB}-${dayB}`);
+        
+          return dateB.getTime() - dateA.getTime();
+        });
+
+        // console.log("data: ", data)
+        // console.log("mealsGrouped: ", mealsGrouped)
+        setMeals(sortedMeals)
 
       } catch (error) {
         console.log("Meals: ",error)
@@ -57,8 +70,10 @@ export function Meals() {
               title="Nova refeição" 
               type="primary"
               onPress={()=> navigation.navigate("newMeals")}
-            
-            ></Button>
+              
+            >
+              <Plus color="white" size={18}/>
+            </Button>
 
             <View style={{ flex: 1 }}>
               <SectionList
