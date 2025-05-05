@@ -1,20 +1,25 @@
-import styled from "styled-components/native";
+import styled, { css } from "styled-components/native";
 import { ArrowUpRight } from "phosphor-react-native";
 
+type Props = { 
+    percent: number
+}
 
-export const PercentContainer = styled.View`
-    background: ${({theme})=> theme.COLORS["green-light"]};
-    border-radius: 8px;
-    padding: 10px 10px 20px;
-    margin-top: 10px;
-    `
+export const PercentContainer = styled.View<Props>`
+    ${({theme, percent})=> css`
+        background: ${percent > 90 ? theme.COLORS["green-light"]: theme.COLORS["red-light"]};
+        border-radius: 8px;
+        padding: 10px 10px 20px;
+        margin-top: 10px;
+    `}
+`
 export const IconContainer = styled.TouchableOpacity`
 
 `
 
-export const Icon = styled(ArrowUpRight).attrs(({theme})=> ({
+export const Icon = styled(ArrowUpRight).attrs<Props>(({theme, percent})=>({
     size: 24,
-    color: theme.COLORS["green-dark"],
+    color: percent > 90 ? theme.COLORS["green-dark"] : theme.COLORS["red-dark"],
 }))`
     margin-left: auto;
     `

@@ -51,9 +51,9 @@ export function Percent() {
     }, [])
 
     return(
-        <PercentContainer>
+        <PercentContainer percent={percent}>
             <IconContainer onPress={()=> navigation.navigate("statistics",{totalAmount, percent, statusYes, maxSequence})}>
-                <Icon/>
+                <Icon percent={percent}/>
             </IconContainer>
             <TitlePercent>{percent.toFixed(2)}%</TitlePercent>
             <SubtitlePercent>das refeições dentro da dieta</SubtitlePercent>
